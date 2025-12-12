@@ -48,6 +48,11 @@ A arquitetura final integra três técnicas principais:
 ## __Objetivo__
 O jogador deve explorar masmorras geradas proceduralmente, recolher recursos e sobreviver a vários tipos de inimigos. A IA controla o comportamento desses inimigos, permitindo patrulhar, perseguir, atacar ou fugir conforme o estado.
 
+- Como Jogar:
+O jogador deve clicar na Pasta das Scenes e abrir na TestArea Scene:
+<p align="center"> <img src="https://i.postimg.cc/V5PYFMh0/imagem-2025-12-12-224234187.png" width="700" alt="fluxo"> </p>
+
+
 <a name="controlos"></a>
 ## __Controlos__
 - W, A, S, D: Movimentação.
