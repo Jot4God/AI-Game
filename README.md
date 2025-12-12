@@ -81,8 +81,8 @@ A jogabilidade centra-se no combate e posicionamento. A IA utiliza o cenário a 
 <a name="arquitetura"></a>
 # __Arquitetura de IA__
 A arquitetura foi desenhada para ser modular, escalável e fácil de depurar, seguindo o modelo recomendado na UC para desenvolvimento de agentes inteligentes. 
-Fluxo Geral
-<p align="center"> <img src="https://i.postimg.cc/W1cztKPm/image123.png" width="800" alt="Gameplay Overview"> </p>
+- __Fluxo Geral:__
+<p align="center"> <img src="https://i.postimg.cc/W1cztKPm/image123.png" width="700" alt="fluxo"> </p>
 
 <a name="pipeline"></a>
 ## __Pipeline de Decisão__
