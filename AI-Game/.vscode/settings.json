@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PA_TheReturnOfTheFallen.sln"
+    "dotnet.defaultSolution": "AI-Game.sln"
 }

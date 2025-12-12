@@ -66,7 +66,6 @@
   <ItemGroup>
     <Compile Include="Assets\Player\PlayerEquipmentUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
-    <Compile Include="Assets\Scripts\AIscipts\EnemyStates.cs" />
     <Compile Include="Assets\Enemy\HideOnPlay.cs" />
     <Compile Include="Assets\Inventory\InventoryUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -78,9 +77,9 @@
     <Compile Include="Assets\Enemy\Bandits\BanditAI.cs" />
     <Compile Include="Assets\Scripts\HealthPickup.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
-    <Compile Include="Assets\Scripts\AIscipts\EnemyDecisionTree.cs" />
     <Compile Include="Assets\Speech Bubble\Scripts\SpeechBubbleType.cs" />
     <Compile Include="Assets\Speech Bubble\Scripts\SpeechBubble_Legacy.cs" />
+    <Compile Include="Assets\Scripts\AI\EnemyController.cs" />
     <Compile Include="Assets\Player\PlayerConsumables.cs" />
     <Compile Include="Assets\Player\PlayerSpawnData.cs" />
     <Compile Include="Assets\Scripts\ManaEfficiencyBook.cs" />
@@ -97,6 +96,8 @@
     <Compile Include="Assets\Player\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\Slash.cs" />
     <Compile Include="Assets\Speech Bubble\Scripts\SpeechBubble_TMP.cs" />
+    <Compile Include="Assets\Scripts\AI\EnemyDecisionTree.cs" />
+    <Compile Include="Assets\Scripts\AI\AStarGrid.cs" />
     <Compile Include="Assets\Game\Billboard.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\PlayerSpellAdapter.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="Assets\Player\PlayerMana.cs" />
     <Compile Include="Assets\Player\Portal3D.cs" />
     <Compile Include="Assets\TutorialCombatArea\EnemyScripts\EnemySpawner.cs" />
-    <Compile Include="Assets\Scripts\AIscipts\AStarGrid.cs" />
     <Compile Include="Assets\Game\CameraController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\ManaPoolZone3D.cs" />
@@ -169,6 +169,7 @@
     <Compile Include="Assets\Scripts\SkillTreeToggle.cs" />
     <Compile Include="Assets\Scripts\ScreenFader.cs" />
     <Compile Include="Assets\Player\PlayerMoney.cs" />
+    <Compile Include="Assets\Scripts\AI\EnemyStates.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Player\SpellHit.cs" />
@@ -179,7 +180,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Scripts\DarkManaCrystal.cs" />
-    <Compile Include="Assets\Enemy\EnemyController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Player\PlayerController.cs" />
