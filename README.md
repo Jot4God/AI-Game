@@ -33,7 +33,6 @@ A arquitetura final integra três técnicas principais:
 - Decision Tree – Tomada de decisão de alto nível
 - Finite State Machine (FSM) – Controlo de comportamento
   
-<p align="center"> <img src="LINK_PARA_CAPA_DO_JOGO.png" width="800" alt="Gameplay Overview"> </p>
 <a name="estrutura"></a>
 
 # __Estrutura de Pastas__
@@ -80,7 +79,7 @@ A jogabilidade centra-se no combate e posicionamento. A IA utiliza o cenário a 
 # __Arquitetura de IA__
 A arquitetura foi desenhada para ser modular, escalável e fácil de depurar, seguindo o modelo recomendado na UC para desenvolvimento de agentes inteligentes. 
 - __Fluxo Geral:__
-<p align="center"> <img src="https://i.postimg.cc/W1cztKPm/image123.png" width="700" alt="fluxo"> </p>
+<p align="center"> <img src="https://i.postimg.cc/QMKFfnT3/imag21312e.png" width="700" alt="fluxo"> </p>
 
 <a name="pipeline"></a>
 ## __Pipeline de Decisão__
