@@ -82,7 +82,7 @@ A jogabilidade centra-se no combate e posicionamento. A IA utiliza o cenário a 
 # __Arquitetura de IA__
 A arquitetura foi desenhada para ser modular, escalável e fácil de depurar, seguindo o modelo recomendado na UC para desenvolvimento de agentes inteligentes. 
 Fluxo Geral
-Decision Tree → FSM → A* Path-Finding
+<p align="center"> <img src="https://i.postimg.cc/W1cztKPm/image123.png" width="800" alt="Gameplay Overview"> </p>
 
 <a name="pipeline"></a>
 ## __Pipeline de Decisão__
