@@ -13,6 +13,7 @@
    - [__Path-Finding (A*)__](#path)
    - [__Decision Tree__](#decision)
    - [__Finite State Machine (FSM)__](#fsm)
+   - [__Integração__](#integracao)
 6. [__Aspetos Técnicos e Decisões___](#aspetos)
 7. [__Avaliação e Testes da IA___](#avaliacao)
 8. [__Limitações e Trabalho Futuro__](#limitacoes)
@@ -41,12 +42,9 @@ A arquitetura final integra três técnicas principais:
         - __AI/__
             - [|-- AStarGrid.cs](#astar)
             - [|-- EnemyDecisionTree.cs](#decisiontree)
+            - [|-- EnemyStates.cs](#enemystates)
             - [|-- EnemyController.cs](#enemycontroller)
-            - __EnemyStates/__
-                - [|-- EnemyPatrolState.cs](#patrolstate)
-                - [|-- EnemyChaseState.cs](#chasestate)
-                - [|-- EnemyAttackState.cs](#attackstate)
-                - [|-- EnemyFleeState.cs](#fleestate)
+              
 <a name="objetivo"></a>
 ## __Objetivo__
 O jogador deve explorar masmorras geradas proceduralmente, recolher recursos e sobreviver a vários tipos de inimigos. A IA controla o comportamento desses inimigos, permitindo patrulhar, perseguir, atacar ou fugir conforme o estado.
@@ -93,13 +91,38 @@ Conforme ilustrado nos diagramas do projeto:
 
 <a name="descricao"></a>
 # __Descrição das Classes e Técnicas__
+Esta secção detalha a implementação técnica dos quatro scripts principais que compõem a arquitetura da IA.
 
 <a name="path"></a>
-## __Path-Finding (A*)__
-Implementado em AStarGrid.cs. O sistema de navegação discretiza o mapa numa grelha. O algoritmo A* é utilizado pelos estados de Patrulha, Perseguição e Fuga para calcular rotas eficientes, garantindo que os inimigos não ficam presos em paredes ou obstáculos.
+## __Path-Finding (A*)__  - AStarGrid.cs
+Este script é o núcleo da navegação. Ele divide o mundo numa grelha de nós (Nodes). No método CreateGrid, ele usa Physics.CheckBox para detetar obstáculos e marcar zonas proibidas. O método FindPath executa o algoritmo A*, calculando os custos G (distância ao início) e H (distância heurística ao fim) para encontrar o caminho mais curto.
+
+```
+// Loop principal do Algoritmo A*
+while (openSet.Count > 0)
+{
+    Node currentNode = openSet[0];
+
+    // Procura o nó com o menor custo F na lista aberta
+    for (int i = 1; i < openSet.Count; i++)
+    {
+        if (openSet[i].FCost < currentNode.FCost || 
+           (openSet[i].FCost == currentNode.FCost && openSet[i].hCost < currentNode.hCost))
+        {
+            currentNode = openSet[i];
+        }
+    }
+
+    if (currentNode == targetNode) {
+        return RetracePath(startNode, targetNode); // Caminho encontrado
+    }
+    // ... (lógica de vizinhos)
+}
+```
 
 <a name="decision"></a>
-## __Decision Tree__
+## __Decision Tree__ - EnemyDecisionTree.cs
+
 Implementada em EnemyDecisionTree.cs. Esta classe processa as variáveis do jogo e retorna uma Decision (Enum). A estrutura lógica segue a prioridade:
 
 1. Sobrevivência: Se Health < 25% → Decisão: Flee.
@@ -111,35 +134,89 @@ Implementada em EnemyDecisionTree.cs. Esta classe processa as variáveis do jogo
 4. Padrão: Caso contrário → Decisão: Patrol.
 
 ```
-if (health < 25%) return Flee;
-if (dist < 1.5) return Attack;
-if (dist < 8) return Chase;
-return Patrol;
+public Decision Evaluate(float distance, float healthRatio, float chaseDist, float attackDist)
+{
+    // 1. Prioridade Máxima: Sobrevivência
+    if (healthRatio < 0.25f)
+        return Decision.Flee;
+
+    // 2. Prioridade de Combate
+    if (distance <= attackDist)
+        return Decision.Attack;
+
+    // 3. Prioridade de Perseguição
+    if (distance <= chaseDist)
+        return Decision.Chase;
+
+    // 4. Comportamento Default
+    return Decision.Patrol;
+}
 ```
+
+<p align="center"> <img src="https://i.postimg.cc/T3Z8Jy9X/imagem-2025-12-12-175144319.png" width="700" alt="decision"> </p>
+
 <a name="fsm"></a>
 ## __Finite State Machine (FSM)__
-Implementada através de classes de estado em Scripts/AI/EnemyStates/. A FSM recebe a decisão da Árvore e transita para o estado concreto. Cada estado (EnemyPatrolState, EnemyChaseState, etc.) é uma classe isolada que implementa a lógica específica de execução.
-Foi criada uma FSM modular com estados individuais:
-
-- EnemyPatrolState
-
-- EnemyChaseState
-
-- EnemyAttackState
-
-- EnemyFleeState
+A FSM foi implementada usando uma arquitetura modular. Cada estado é uma classe independente que sabe como executar a sua própria lógica.
 
 ```
-Enter()
-Update()
-Exit()
-```
+// Classe Base
+public abstract class EnemyState {
+    protected EnemyController enemy;
+    public abstract void Enter();
+    public abstract void Update(); // Onde a lógica acontece
+    public abstract void Exit();
+}
 
+// Exemplo: Estado de Patrulha
+public class EnemyPatrolState : EnemyState {
+    public override void Enter() { enemy.SetDirection(Vector3.zero); }
+    
+    public override void Update() { 
+        // Chama o método de ação no controlador
+        enemy.DoPatrol(); 
+    }
+}
+```
+<p align="center"> <img src="https://i.postimg.cc/T1g8STYB/image123123.png" width="250" alt="fsmm"> </p>
+
+
+<a name="integracao"></a>
+## __Integração__ - EnemyController.cs
+
+Este é o elo de ligação. No método Update, o controlador consulta a Árvore de Decisão e, se a decisão mudar, realiza a troca de estado na FSM.
+```
+void Update()
+{
+    // 1. Obter dados do mundo (Sensores)
+    float dist = Vector3.Distance(transform.position, player.position);
+    float hpRatio = (float)currentHealth / maxHealth;
+
+    // 2. Decision Tree decide o que fazer
+    var decision = decisionTree.Evaluate(dist, hpRatio, chaseDistance, attackDistance);
+
+    // 3. FSM gerencia a troca de estados
+    switch (decision)
+    {
+        case Decision.Patrol:
+            if (!(currentState is EnemyPatrolState)) ChangeState(new EnemyPatrolState(this));
+            break;
+        case Decision.Attack:
+            if (!(currentState is EnemyAttackState)) ChangeState(new EnemyAttackState(this));
+            break;
+        // ... outros casos (Chase, Flee)
+    }
+
+    // 4. Executa o estado atual
+    currentState.Update();
+}
+
+```
 <a name="aspetos"></a>
 # __Aspetos Técnicos e Decisões__
-- Separação de Responsabilidades: A lógica de decidir (Decision Tree) está totalmente separada da lógica de agir (FSM). Isto permite alterar as regras de decisão sem partir a movimentação do inimigo.
-- *Eficiência do A:** O caminho não é recalculado a cada frame. O sistema utiliza um timer ou deteção de movimento do alvo para recalcular rotas apenas quando necessário, otimizando a performance.
-- Visual Debugging: Foram implementados Gizmos no Unity para visualizar a grelha de navegação (nós caminháveis a branco, obstáculos a vermelho) e o caminho atual do inimigo.
+- __Separação de Responsabilidades:__ A lógica de decidir (Decision Tree) está totalmente separada da lógica de agir (FSM). Isto permite alterar as regras de decisão sem partir a movimentação do inimigo.
+- __*Eficiência do A:**__ O caminho não é recalculado a cada frame. O sistema utiliza um timer ou deteção de movimento do alvo para recalcular rotas apenas quando necessário, otimizando a performance.
+- __Visual Debugging:__ Foram implementados Gizmos no Unity para visualizar a grelha de navegação (nós caminháveis a branco, obstáculos a vermelho) e o caminho atual do inimigo.
 
 <a name="avaliacao"></a>
 # __Avaliação e Testes da IA__
@@ -182,6 +259,7 @@ Para validar o comportamento da IA, foram realizados vários testes:
 
 <a name="recursos"></a>
 # __Recursos Visuais__
+
 
 <a name="Conclusão"></a>
 # __Conclusão__
