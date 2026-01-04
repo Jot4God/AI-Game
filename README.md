@@ -99,9 +99,7 @@ Esta secção detalha a implementação técnica dos quatro scripts principais q
 
 <a name="path"></a>
 ## __Path-Finding (A*)__  - AStarGrid.cs
-Este script é o núcleo do **pathfinding**. Ele discretiza o espaço do jogo numa grelha de nós (*Nodes*). 
-- No método `CreateGrid()`, utiliza `Physics.CheckBox` para detetar obstáculos e marcar nós como **não-walkable** (bloqueados). 
-- No método `FindPath()`, executa o algoritmo **A\***, calculando **G** (custo acumulado desde o início) e **H** (heurística até ao destino) e selecionando os nós com menor **F = G + H**, de forma a obter um caminho eficiente até ao alvo.
+Este script é o núcleo do **pathfinding**. Ele discretiza o espaço do jogo numa grelha de nós (*Nodes*). No método `CreateGrid()`, utiliza `Physics.CheckBox` para detetar obstáculos e marcar nós como **não-walkable** (bloqueados). No método `FindPath()`, executa o algoritmo **A\***, calculando **G** (custo acumulado desde o início) e **H** (heurística até ao destino) e selecionando os nós com menor **F = G + H**, de forma a obter um caminho eficiente até ao alvo.
 O algoritmo usa o modelo **F = G + H**:
 - **G**: custo real acumulado desde o início
 - **H**: estimativa (heurística) até ao destino  
