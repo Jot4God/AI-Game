@@ -173,7 +173,7 @@ public Decision Evaluate(float distance, float healthRatio, float chaseDist, flo
 <p align="center"> <img src="https://i.postimg.cc/T3Z8Jy9X/imagem-2025-12-12-175144319.png" width="700" alt="decision"> </p>
 
 <a name="fsm"></a>
-## __Finite State Machine (FSM)__- EnemyState.cs
+## __Finite State Machine (FSM)__ - EnemyState.cs
 A FSM foi implementada usando uma arquitetura modular. Cada estado é uma classe independente que sabe como executar a sua própria lógica. A FSM divide o comportamento em estados independentes, cada um responsável por uma ação concreta.
 
 Estados:
