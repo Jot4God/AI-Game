@@ -123,21 +123,26 @@ while (openSet.Count > 0)
 {
     Node currentNode = openSet[0];
 
-    // Procura o nó com o menor custo F na lista aberta
+    // Escolhe o nó mais promissor: menor F = G + H (desempate: menor H)
     for (int i = 1; i < openSet.Count; i++)
     {
-        if (openSet[i].FCost < currentNode.FCost || 
+        if (openSet[i].FCost < currentNode.FCost ||
            (openSet[i].FCost == currentNode.FCost && openSet[i].hCost < currentNode.hCost))
         {
             currentNode = openSet[i];
         }
     }
 
-    if (currentNode == targetNode) {
-        return RetracePath(startNode, targetNode); // Caminho encontrado
-    }
-    // ... (lógica de vizinhos)
+    // Se chegámos ao destino, reconstruímos o caminho pelos "parents"
+    if (currentNode == targetNode)
+        return RetracePath(startNode, targetNode);
+
+    openSet.Remove(currentNode);
+    closedSet.Add(currentNode);
+
+    // ... lógica de vizinhos (calcular novo G, atualizar parent, adicionar ao openSet)
 }
+
 ```
 
 <a name="decision"></a>
