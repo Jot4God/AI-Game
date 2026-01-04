@@ -127,15 +127,13 @@ while (openSet.Count > 0)
 <a name="decision"></a>
 ## __Decision Tree__ - EnemyDecisionTree.cs
 
-Implementada em EnemyDecisionTree.cs. Esta classe processa as variáveis do jogo e retorna uma Decision (Enum). A estrutura lógica segue a prioridade:
+Implementada em EnemyDecisionTree.cs. Esta classe processa as variáveis do jogo e retorna uma Decision (Enum). A estrutura lógica segue estas regras (por ordem):
 
-1. Sobrevivência: Se Health < 25% → Decisão: Flee.
-
-2. Combate: Se Distance < AttackRange → Decisão: Attack.
-
-3. Perseguição: Se Visible == True → Decisão: Chase.
-
-4. Padrão: Caso contrário → Decisão: Patrol.
+Regras (por ordem):
+1. **Fugir** se a vida estiver abaixo de 25%
+2. **Atacar** se estiver dentro da distância de ataque
+3. **Perseguir** se estiver dentro da distância de perseguição
+4. Caso contrário, **Patrulhar**
 
 ```
 public Decision Evaluate(float distance, float healthRatio, float chaseDist, float attackDist)
