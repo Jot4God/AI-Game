@@ -48,11 +48,6 @@ A arquitetura final integra três técnicas principais:
 ## __Objetivo__
 O jogador deve explorar masmorras geradas proceduralmente, recolher recursos e sobreviver a vários tipos de inimigos. A IA controla o comportamento desses inimigos, permitindo patrulhar, perseguir, atacar ou fugir conforme o estado.
 
-- Como Jogar:
-O jogador deve clicar na Pasta das Scenes e abrir na TestArea Scene:
-<p align="center"> <img src="https://i.postimg.cc/V5PYFMh0/imagem-2025-12-12-224234187.png" width="700" alt="fluxo"> </p>
-
-
 <a name="controlos"></a>
 ## __Controlos__
 - W, A, S, D: Movimentação.
@@ -222,9 +217,33 @@ public class EnemyPatrolState : EnemyState {
 
 
 <a name="integracao"></a>
-## __Integração__ - EnemyController.cs
+## __Pipeline da IA__ - EnemyController.cs
 
 Este é o elo de ligação. No método Update, o controlador consulta a Árvore de Decisão e, se a decisão mudar, realiza a troca de estado na FSM.
+
+O comportamento do inimigo funciona em ciclo:
+
+1. **Perceção / Medição (Update)**
+   - calcula distância ao jogador (plano XZ) e rácio de vida
+
+2. **Decisão (Decision Tree) (Update)**
+   - escolhe `Patrol`, `Chase`, `Attack` ou `Flee`
+
+3. **Execução (FSM) (Update)**
+   - se a decisão mudar, faz transição de estado (`Exit()`/`Enter()`)
+   - executa o estado atual (`currentState.Update()`)
+
+4. **Navegação (A* quando necessário)**
+   - nos estados de deslocação (`Patrol` e `Chase`), `DoPatrol()`/`DoChase()` pedem ao `AStarGrid` o próximo passo (`GetNextStep`) para contornar obstáculos
+   - se não houver path, usa direção direta (fallback)
+
+5. **Movimento físico (FixedUpdate)**
+   - aplica `currentDirection` com `Rigidbody.MovePosition(...)`
+
+Resultado:
+- A **Decision Tree** escolhe o comportamento
+- A **FSM** controla o estado ativo e as transições
+- O **A\*** fornece o próximo passo do caminho quando há obstáculos
 ```
 void Update()
 {
