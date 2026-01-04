@@ -129,7 +129,6 @@ while (openSet.Count > 0)
 
 Implementada em EnemyDecisionTree.cs. Esta classe processa as variáveis do jogo e retorna uma Decision (Enum). A estrutura lógica segue estas regras (por ordem):
 
-Regras (por ordem):
 1. **Fugir** se a vida estiver abaixo de 25%
 2. **Atacar** se estiver dentro da distância de ataque
 3. **Perseguir** se estiver dentro da distância de perseguição
