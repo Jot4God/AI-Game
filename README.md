@@ -158,7 +158,25 @@ public Decision Evaluate(float distance, float healthRatio, float chaseDist, flo
 
 <a name="fsm"></a>
 ## __Finite State Machine (FSM)__
-A FSM foi implementada usando uma arquitetura modular. Cada estado é uma classe independente que sabe como executar a sua própria lógica.
+A FSM foi implementada usando uma arquitetura modular. Cada estado é uma classe independente que sabe como executar a sua própria lógica. A FSM divide o comportamento em estados independentes, cada um responsável por uma ação concreta.
+
+Estados:
+- `EnemyPatrolState` → chama `enemy.DoPatrol()`
+- `EnemyChaseState` → chama `enemy.DoChase()`
+- `EnemyAttackState` → chama `enemy.DoAttack()`
+- `EnemyFleeState` → chama `enemy.DoFlee()`
+
+Transições:
+- A cada `Update()`, o controlador compara a decisão do Decision Tree com o estado atual.
+- Se a decisão implicar outro estado, faz:
+  - `currentState.Exit()`
+  - `currentState = newState`
+  - `currentState.Enter()`
+
+Vantagens:
+- Código mais organizado e modular
+- Fácil adicionar novos estados (ex.: “Stun”, “Search”, “Guard”)
+- Separação clara entre *decidir* e *executar*
 
 ```
 // Classe Base
