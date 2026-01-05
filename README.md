@@ -302,7 +302,7 @@ Para validar o comportamento da IA, foram realizados vários testes:
 # __Recursos Visuais__
 ### Grid
 <p align="center"> <img src="https://i.postimg.cc/sgz7dvbM/imagem-2026-01-05-010508509.png" width="700" alt="fluxo"> </p>
-### GameView
+GameView
 <p align="center"> <img src="https://i.postimg.cc/L8vqcvzf/imagem-2026-01-05-010657795.png" width="700" alt="fluxo"> </p>
 
 <a name="Conclusão"></a>
