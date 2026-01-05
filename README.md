@@ -6,19 +6,18 @@
    - [__Objetivo__](#objetivo)
    - [__Controlos__](#controlos)
    - [__Jogabilidade__](#jogabilidade)
-3. [__Instruções de Jogo__](#instru)
-4. [__Arquitetura de IA__](#arquitetura)
+3. [__Arquitetura de IA__](#arquitetura)
    - [__Pipeline de Decisão__](#pipeline)
-5. [__Descrição das Classes e Técnicas___](#descricao)
+4. [__Descrição das Classes e Técnicas___](#descricao)
    - [__Path-Finding (A*)__](#path)
    - [__Decision Tree__](#decision)
    - [__Finite State Machine (FSM)__](#fsm)
    - [__Integração__](#integracao)
-6. [__Aspetos Técnicos e Decisões___](#aspetos)
-7. [__Avaliação e Testes da IA___](#avaliacao)
-8. [__Limitações e Trabalho Futuro__](#limitacoes)
-9. [__Recursos Visuais___](#recursos)
-10. [__Conclusão__](#Conclusão)
+5. [__Aspetos Técnicos e Decisões___](#aspetos)
+6. [__Avaliação e Testes da IA___](#avaliacao)
+7. [__Limitações e Trabalho Futuro__](#limitacoes)
+8. [__Recursos Visuais___](#recursos)
+9. [__Conclusão__](#Conclusão)
 
 # __Introdução__
 Este projeto apresenta a implementação de três técnicas de Inteligência Artificial aplicadas a NPCs num jogo RPG Roguelike 2.5D, desenvolvido em Unity.
@@ -46,7 +45,7 @@ A arquitetura final integra três técnicas principais:
               
 <a name="objetivo"></a>
 ## __Objetivo__
-O jogador deve explorar masmorras geradas proceduralmente, recolher recursos e sobreviver a vários tipos de inimigos. A IA controla o comportamento desses inimigos, permitindo patrulhar, perseguir, atacar ou fugir conforme o estado.
+Neste jogo, o jogador explora masmorras geradas proceduralmente, recolhe recursos e enfrenta vários inimigos. Implementámos uma IA que controla o comportamento desses inimigos, permitindo que patrulhem, persigam, ataquem ou fujam, dependendo do estado do jogo e do estado interno do inimigo (por exemplo, a vida).
 
 <a name="controlos"></a>
 ## __Controlos__
@@ -56,24 +55,7 @@ O jogador deve explorar masmorras geradas proceduralmente, recolher recursos e s
 
 <a name="jogabilidade"></a>
 ## __Jogabilidade__
-A jogabilidade centra-se no combate e posicionamento. A IA utiliza o cenário a seu favor, evitando obstáculos e navegando por salas através do algoritmo A*.
-
-
-<a name="instru"></a>
-# __Instruções de Jogo__
-
-1. Inicie o jogo no Menu Principal.
-
-2. Explore a primeira sala segura.
-
-3. Ao encontrar inimigos:
-
-    - Se não virem o jogador → continuam em Patrulha
-
-    - Se detetarem o jogador → entram em Perseguição
-
-    - Se sofrerem dano e ficarem com pouca vida → ativam Fuga
-
+A jogabilidade centra-se no combate e no posicionamento. Para garantir que os inimigos se movimentam de forma credível em salas e corredores com obstáculos, implementámos o algoritmo A*, permitindo que a perseguição ao jogador funcione mesmo em mapas com caminhos não lineares.
 
 <a name="arquitetura"></a>
 # __Arquitetura de IA__
